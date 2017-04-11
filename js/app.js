@@ -1,8 +1,9 @@
 
 $(document).ready(function()
 {
-
+	
 	var	count = 0;
+	var foo = false; // true quand c'est l'ordinateur qui joue
 
 	var array = [ 	[1, 1, 1],
 					[1, 1, 1],
@@ -29,7 +30,27 @@ $(document).ready(function()
 		}
 	};
 
-	// fonction pour connaitre le player
+	// fonction pour créer une I.A
+
+	var robotPlay = function(a)
+	{
+		if  (a === 'X')
+		{
+			var row = Math.round(Math.random()* 2);			// valeur aléatoire en ligne
+			var cell = Math.round(Math.random()* 2);		// valeur aléatoire en cellule
+			if  (array[row][cell] === 1)					
+			{
+				return array[row][cell] = 'X', count++, foo = false;
+			}
+			else
+			{
+				robotPlay();
+			}
+		}
+	};
+
+	// fonction pour faire un 1vsI.A
+	// fonction pour faire un 1vs1
 
 	$('td').click(function()
 	{
@@ -37,7 +58,10 @@ $(document).ready(function()
 		if (bool && check === "")
 		{
 			count++;
-			count % 2 === 0 ?	player = 'X' : player = 'O'; 		
+			count % 2 === 0 ?	player = 'X' : player = 'O';
+			robotPlay(player);
+			console.log(robotPlay(player));
+			console.log(array); 		
 		}
 	});
 
